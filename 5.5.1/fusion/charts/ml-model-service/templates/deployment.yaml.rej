@@ -1,0 +1,15 @@
+--- fusion/charts/ml-model-service/templates/deployment.yaml	(revision 038be8ef32289ed9ca03ad14dd6b2de96f175d83)
++++ fusion/charts/ml-model-service/templates/deployment.yaml	(revision 90b197cea3ded09d8306e9874c5ba8e5a45f93ce)
+@@ -77,11 +72,7 @@
+       - name: java-service
+         image: "{{ .Values.javaService.repository | default .Values.image.repository }}/{{ .Values.javaService.imageName }}:{{ .Values.javaService.tag | default .Values.image.tag }}"
+         imagePullPolicy: "{{ .Values.image.imagePullPolicy }}"
+-        securityContext:
+-          readOnlyRootFilesystem: true
+-          runAsNonRoot: true
+-          allowPrivilegeEscalation: false
+-          privileged: false
++
+         volumeMounts:
+           {{- if .Values.gcs.pretrained.enabled }}
+           - name: gcs-pretrained-secret

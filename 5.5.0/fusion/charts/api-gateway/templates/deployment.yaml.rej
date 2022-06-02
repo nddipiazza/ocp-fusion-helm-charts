@@ -1,0 +1,11 @@
+--- fusion/charts/api-gateway/templates/deployment.yaml	(revision fe3536264471f25a404845afca990d9956f97af6)
++++ fusion/charts/api-gateway/templates/deployment.yaml	(revision fc68121962571f4f0d99a5953f3a5e20edb9762c)
+@@ -169,7 +178,7 @@
+             exec:
+               command: ["sleep", "{{ .Values.preStopSleepTime }}"]
+         volumeMounts:
+-          - name: "jks"
++          - name: jks
+             mountPath: "/etc/ssl/keystores"
+ {{ if $tlsEnabled }}
+           - name: "keystore-volume"

@@ -1,0 +1,15 @@
+--- fusion/charts/fusion-indexing/templates/deployment.yaml	(revision 038be8ef32289ed9ca03ad14dd6b2de96f175d83)
++++ fusion/charts/fusion-indexing/templates/deployment.yaml	(revision 90b197cea3ded09d8306e9874c5ba8e5a45f93ce)
+@@ -67,11 +63,7 @@
+       - name: fusion-indexing
+         image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+         imagePullPolicy: "{{ .Values.image.imagePullPolicy }}"
+-        securityContext:
+-          readOnlyRootFilesystem: true
+-          runAsNonRoot: true
+-          allowPrivilegeEscalation: false
+-          privileged: false
++
+         args:
+           - "--spring.profiles.active={{ include "fusion.fusion-indexing.springProfs" . }}{{- if $tlsEnabled }},tls{{- end }}{{- if $jsonOutput }},logjson{{- end }}{{- if $logstashHost }},logstash{{- end }}{{- if $logPulsar }},logpulsar{{- end }}"
+           - "--spring.cloud.kubernetes.config.name={{ include "fusion.fusion-indexing.fullname" . }}"

@@ -4,7 +4,8 @@ Pull down previous version of Fusion helm chart and use it to create a diff file
 
 Example: 5.4.5
 
-```FUSION_VERSION="5.4.5"
+```
+FUSION_VERSION="5.4.5"
 helm fetch lucidworks/fusion --version "${FUSION_VERSION}" --untar --untardir fusion-helm-charts
 mv fusion-helm-charts/ "${FUSION_VERSION}"
 cd "${FUSION_VERSION}"
@@ -25,14 +26,16 @@ Now grab the next version of Fusion from helm and copy it into the git repo.
 
 Example: 5.5.0
 
-```FUSION_VERSION="5.5.0"
+```
+FUSION_VERSION="5.5.0"
 helm fetch lucidworks/fusion --version "${FUSION_VERSION}" --untar --untardir fusion-helm-charts
 mv fusion-helm-charts/ ~/f5/ocp-fusion-helm-charts/${FUSION_VERSION}
 ```
 
 apply the patch
 
-```cp updates_for_${FUSION_VERSION}_ocp.patch ~/f5/ocp-fusion-helm-charts/${FUSION_VERSION}
+```
+cp updates_for_${FUSION_VERSION}_ocp.patch ~/f5/ocp-fusion-helm-charts/${FUSION_VERSION}
 cd ~/f5/ocp-fusion-helm-charts/${FUSION_VERSION}
 patch -p1 < updates_for_${FUSION_VERSION}_ocp.patch
 git add .

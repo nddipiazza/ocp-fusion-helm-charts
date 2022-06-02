@@ -1,0 +1,21 @@
+--- fusion/values.yaml	(revision 038be8ef32289ed9ca03ad14dd6b2de96f175d83)
++++ fusion/values.yaml	(revision 90b197cea3ded09d8306e9874c5ba8e5a45f93ce)
+@@ -454,8 +443,6 @@
+     default: {}
+     deploy:
+       seldon: null
+-  securityContext:
+-    fsGroup: 8764
+   tls:
+     enabled: false
+     keystorePassword: changeit
+@@ -652,8 +632,7 @@
+     etl: null
+     seldon: null
+     train: null
+-  securityContext:
+-    fsGroup: 8764
++
+   tls:
+     enabled: false
+     keystorePassword: changeit

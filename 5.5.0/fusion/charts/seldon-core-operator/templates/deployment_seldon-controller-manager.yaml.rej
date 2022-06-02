@@ -1,0 +1,11 @@
+--- fusion/charts/seldon-core-operator/templates/deployment_seldon-controller-manager.yaml	(revision fe3536264471f25a404845afca990d9956f97af6)
++++ fusion/charts/seldon-core-operator/templates/deployment_seldon-controller-manager.yaml	(revision fc68121962571f4f0d99a5953f3a5e20edb9762c)
+@@ -152,7 +152,7 @@
+           name: cert
+           readOnly: true
+ {{- end }}
+-      serviceAccountName: '{{ .Values.serviceAccount.name }}'
++
+       imagePullSecrets: {{ .Values.image.imagePullSecrets | toYaml | nindent 8 }}
+       terminationGracePeriodSeconds: 10
+ {{- if not .Values.managerCreateResources }}

@@ -1,0 +1,23 @@
+--- fusion/charts/connectors-backend/templates/deployment.yml	(revision 038be8ef32289ed9ca03ad14dd6b2de96f175d83)
++++ fusion/charts/connectors-backend/templates/deployment.yml	(revision 90b197cea3ded09d8306e9874c5ba8e5a45f93ce)
+@@ -65,15 +61,15 @@
+         - name: connectors-backend
+           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+           imagePullPolicy: {{ .Values.image.pullPolicy }}
+-          securityContext:
+-            readOnlyRootFilesystem: true
+-            runAsNonRoot: true
+-            allowPrivilegeEscalation: false
+-            privileged: false
++
+           volumeMounts:
+             - name: application-config-k8s
+               mountPath: "app/config"
+               readOnly: true
++            - name: logs-dir
++              mountPath: /backend-logs
++            - name: config-volume
++              mountPath: /config-map
+             - name: plugins-dir
+               mountPath: "/app/plugins"
+             - name: tmp
