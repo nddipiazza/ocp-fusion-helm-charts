@@ -27,7 +27,6 @@ spec:
         volumeMounts:
         - mountPath: /etc/config
           name: seldon-spartakus-config-volume
-      serviceAccountName: seldon-spartakus-volunteer
       volumes:
       - configMap:
           name: seldon-spartakus-config

@@ -14,11 +14,6 @@ spec:
           labels:
             app.kubernetes.io/name: spark-cleanup
         spec:
-{{- if .Values.securityContext }}
-          securityContext:
-{{- .Values.securityContext | toYaml | nindent 12 }}
-{{- end }}
-          serviceAccountName: "{{ .Values.rbac.serviceAccountName | default ( include "fusion.job-launcher.fullname" . ) }}"
         {{- if .Values.sparkCleanup.nodeSelector }}
           nodeSelector:
             {{ toYaml .Values.sparkCleanup.nodeSelector | nindent 12 }}
@@ -28,12 +23,6 @@ spec:
               image: bitnami/kubectl
               command: ["sh", "-c", "kubectl delete pods --namespace {{ .Values.sparkNamespace | default .Release.Namespace }} --field-selector=status.phase=Succeeded -l spark-role=driver"]
               resources: {{ toYaml .Values.sparkCleanup.resources | nindent 16 }}
-              securityContext:
-                readOnlyRootFilesystem: true
-                runAsNonRoot: true
-                allowPrivilegeEscalation: false
-                privileged: false
-                runAsUser: {{ .Values.securityContext.runAsUser }}
           restartPolicy: Never
   successfulJobsHistoryLimit: 0
 ---
@@ -53,11 +42,7 @@ spec:
           labels:
             app.kubernetes.io/name: ml-argo-cleanup
         spec:
-{{- if .Values.securityContext }}
-          securityContext:
-{{- .Values.securityContext | toYaml | nindent 12 }}
-{{- end }}
-          serviceAccountName: "{{ .Values.rbac.serviceAccountName | default ( include "fusion.job-launcher.fullname" . ) }}"
+
         {{- if .Values.argoCleanup.nodeSelector }}
           nodeSelector:
             {{ toYaml .Values.argoCleanup.nodeSelector | nindent 12 }}
@@ -67,11 +52,5 @@ spec:
               image: bitnami/kubectl
               command: ["sh", "-c", "kubectl delete pods --namespace {{ default .Release.Namespace }} --field-selector=status.phase=Succeeded -l workflows.argoproj.io/completed=true"]
               resources: {{ toYaml .Values.argoCleanup.resources | nindent 16 }}
-              securityContext:
-                readOnlyRootFilesystem: true
-                runAsNonRoot: true
-                allowPrivilegeEscalation: false
-                privileged: false
-                runAsUser: {{ .Values.securityContext.runAsUser }}
           restartPolicy: Never
   successfulJobsHistoryLimit: 0
